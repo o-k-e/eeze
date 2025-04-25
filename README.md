@@ -87,7 +87,7 @@ Make sure you have the following installed:
    
 2. **Clone the repository** to your machine by executing the command below in your **terminal**, then proceed with one of the installation options below.
    ```bash
-   git clone https://github.com/rudnaid/spendeeze
+   git clone https://github.com/o-k-e/solar-watch.git
    ```
 
 To simplify setup, example `.env` files with the necessary **environment variables** are already provided in the **config** directory. You can modify their values to customize the app to your preferences, either by manually editing them or by running the provided **starter scripts**.
