@@ -32,6 +32,10 @@ It provides insights through data visualization, helping users make informed fin
 
 <img width="492" alt="Screenshot 2025-04-02 at 21 52 38" src="https://github.com/user-attachments/assets/704132f7-2839-4503-95e9-9c5b3d3ef769" /> <br>
 
+<img width="378" alt="Screenshot 2025-04-02 at 21 48 21" src="https://github.com/user-attachments/assets/bb7a4245-e3c1-4a57-a892-8fb632745adc" />
+
+<img width="373" alt="Screenshot 2025-04-02 at 22 02 17" src="https://github.com/user-attachments/assets/909e5839-669e-4dcf-877f-468ca1b8f296" />
+
 The entire application is containerized using **Docker Compose**, enabling seamless **deployment** and **scalability**.
 
 A **CI pipeline** helps ensure **code stability** and **correctness** by automatically building and testing code changes on GitHub.
