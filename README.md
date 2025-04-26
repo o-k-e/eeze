@@ -133,7 +133,7 @@ To simplify setup, example `.env` files with the necessary **environment variabl
 5. **Stopping the application**
    - To remove the containers, execute this command:  
      ```bash
-       docker-compose down -v
+       docker compose down -v
      ```
 
 #### Without Docker
