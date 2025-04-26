@@ -75,12 +75,12 @@ To get a local copy up and running, follow these steps:
 
 Depending on how you want to run the application, different tools are required:
 
-#### If you only want to run the application using Docker, you only need to install:
+#### If you only want to run the application using Docker, install:
 
   - #### Docker Desktop
     ➡️ [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)  
 
-#### If you plan to run the code locally without Docker, you will need to install:
+#### If you plan to run the code locally without Docker, install:
 
   - #### Java 23
     ➡️ [https://jdk.java.net/23/](https://jdk.java.net/23/)  
