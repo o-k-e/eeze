@@ -73,13 +73,26 @@ To get a local copy up and running, follow these steps:
 
 ### Prerequisites
 
-Make sure you have the following installed:
+Depending on how you want to run the application, different tools are required:
 
-- **Java 23**
-- **Node.js 18+**
-- **PostgreSQL 14+**
-- **Maven**
-- **Docker** (*optional*)
+#### If you only want to run the application using Docker, you only need to install:
+
+  - #### Docker Desktop
+    ➡️ [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)  
+
+#### If you plan to run the code locally without Docker, you will need to install:
+
+  - #### Java 23
+    ➡️ [https://jdk.java.net/23/](https://jdk.java.net/23/)  
+
+  - #### Node.js 18+
+    ➡️ [https://nodejs.org/en/download/](https://nodejs.org/en/download/)  
+  
+  - #### PostgreSQL 14+
+    ➡️ [https://www.postgresql.org/download/](https://www.postgresql.org/download/)  
+
+  - #### Maven 3.9+
+    ➡️ [https://maven.apache.org/download.cgi](https://maven.apache.org/download.cgi)  
 
 ### Installation Steps
 
