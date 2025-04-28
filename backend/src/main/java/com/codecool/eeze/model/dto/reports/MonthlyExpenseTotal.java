@@ -1,12 +1,4 @@
 package com.codecool.eeze.model.dto.reports;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+public record MonthlyExpenseTotal(int month, double totalExpense) {}
 
-@Getter
-@AllArgsConstructor
-public class MonthlyExpenseTotal {
-
-    int month;
-    double totalExpense;
-}

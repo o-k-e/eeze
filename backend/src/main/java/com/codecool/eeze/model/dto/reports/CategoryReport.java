@@ -1,12 +1,4 @@
 package com.codecool.eeze.model.dto.reports;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+public record CategoryReport(String categoryName, double totalAmount) {}
 
-@Getter
-@AllArgsConstructor
-public class CategoryReport {
-
-    private String categoryName;
-    private double totalAmount;
-}
