@@ -60,11 +60,14 @@ A **CI pipeline** helps ensure **code stability** and **correctness** by automat
 
 ## Contributors
 
-| Name          | GitHub Profile |
-|--------------|---------------|
-| Éva Gömbös-Jeczuska  | [Vica1921](https://github.com/Vica1921) |
-| Erika Oláhné Klár | [o-k-e](https://github.com/o-k-e) |
-| Dávid Rudnai | [rudnaid](https://github.com/rudnaid) |
+- **Éva Gömbös-Jeczuska:**  
+  [![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Vica1921)
+
+- **Erika Oláhné Klár:**  
+  [![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/o-k-e)
+
+- **Dávid Rudnai:**  
+  [![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rudnaid)
 
 
 ## Getting Started
