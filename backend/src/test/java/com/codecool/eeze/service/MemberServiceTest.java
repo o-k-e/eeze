@@ -2,7 +2,6 @@ package com.codecool.eeze.service;
 
 import com.codecool.eeze.model.dto.*;
 import com.codecool.eeze.model.entity.Member;
-import com.codecool.eeze.model.entity.MemberRole;
 import com.codecool.eeze.repository.MemberRepository;
 import com.codecool.eeze.security.jwt.JwtUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -44,26 +44,17 @@ public class MemberServiceTest {
     @Mock
     private JwtUtils jwtUtils;
 
+    @Mock
+    private Member member;
+
     @InjectMocks
     private MemberService memberService;
 
-    private Member member;
     private MemberRequestDTO memberRequestDTO;
     private LoginMemberRequestDTO loginRequestDTO;
 
-
     @BeforeEach
     void setUp() {
-        member = new Member();
-        member.setId(1L);
-        member.setUsername("testUser");
-        member.setPassword("testPassword");
-        member.setFirstName("TestFirstName");
-        member.setLastName("TestLastName");
-        member.setEmail("test@gmail.com");
-        member.setCountry("TestCountry");
-        member.setRoles(Set.of(MemberRole.ROLE_USER));
-
         memberRequestDTO = new MemberRequestDTO(
                 "TestFirstName", "TestLastName", "TestCountry", "test@gmail.com", "testUser", "password123"
         );
@@ -76,18 +67,21 @@ public class MemberServiceTest {
     void givenValidUsername_whenGetUserResponseDTOByUsername_thenReturnMemberResponseDTO() {
         // GIVEN
         given(memberRepository.findMemberByUsername("testUser")).willReturn(Optional.of(member));
+        given(member.getFirstName()).willReturn("TestFirstName");
+        given(member.getLastName()).willReturn("TestLastName");
+        given(member.getEmail()).willReturn("test@gmail.com");
+        given(member.getCountry()).willReturn("TestCountry");
 
         // WHEN
         MemberResponseDTO result = memberService.getUserResponseDTOByUsername("testUser");
 
         // THEN
         assertThat(result).isNotNull();
-        assertThat(result.firstName()).isEqualTo(member.getFirstName());
-        assertThat(result.lastName()).isEqualTo(member.getLastName());
-        assertThat(result.email()).isEqualTo(member.getEmail());
-        assertThat(result.country()).isEqualTo(member.getCountry());
+        assertThat(result.firstName()).isEqualTo("TestFirstName");
+        assertThat(result.lastName()).isEqualTo("TestLastName");
+        assertThat(result.email()).isEqualTo("test@gmail.com");
+        assertThat(result.country()).isEqualTo("TestCountry");
 
-        // Verify repository interaction
         verify(memberRepository, times(1)).findMemberByUsername("testUser");
     }
 
@@ -102,7 +96,6 @@ public class MemberServiceTest {
             memberService.getUserResponseDTOByUsername("invalidUser");
         });
 
-        // Verify repository interaction
         verify(memberRepository, times(1)).findMemberByUsername("invalidUser");
     }
 
@@ -111,7 +104,7 @@ public class MemberServiceTest {
     void givenMemberRequestDTO_whenAddMember_thenReturnMemberResponseDTO() {
         // GIVEN
         given(passwordEncoder.encode(anyString())).willReturn("encodedPassword");
-        given(memberRepository.save(any(Member.class))).willReturn(member);
+        given(memberRepository.save(any(Member.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         // WHEN
         MemberResponseDTO savedMember = memberService.addMember(memberRequestDTO);
@@ -123,7 +116,6 @@ public class MemberServiceTest {
         assertThat(savedMember.country()).isEqualTo("TestCountry");
         assertThat(savedMember.email()).isEqualTo("test@gmail.com");
 
-        // Verify repository interactions
         verify(passwordEncoder, times(1)).encode(anyString());
         verify(memberRepository, times(1)).save(any(Member.class));
     }
@@ -148,7 +140,6 @@ public class MemberServiceTest {
         assertThat(jwtResponse.username()).isEqualTo("testUser");
         assertThat(jwtResponse.roles()).contains("ROLE_USER");
 
-        // Verify interactions
         verify(authenticationManager, times(1)).authenticate(any());
         verify(jwtUtils, times(1)).generateJwtToken(authentication);
     }
@@ -159,9 +150,14 @@ public class MemberServiceTest {
         // GIVEN
         given(memberRepository.findMemberByUsername("testUser")).willReturn(Optional.of(member));
         given(memberRepository.save(any(Member.class))).willReturn(member);
-        member.setEmail("updated@gmail.com");
-        member.setCountry("UpdatedCountry");
-        MemberUpdateDTO memberUpdateDTO = new MemberUpdateDTO(Optional.of(""), Optional.of(""), Optional.of("UpdatedCountry"), Optional.of("updated@gmail.com"), Optional.of(""));
+        given(member.getFirstName()).willReturn("TestFirstName");
+        given(member.getLastName()).willReturn("TestLastName");
+        given(member.getEmail()).willReturn("updated@gmail.com");
+        given(member.getCountry()).willReturn("UpdatedCountry");
+
+        MemberUpdateDTO memberUpdateDTO = new MemberUpdateDTO(
+                Optional.of(""), Optional.of(""), Optional.of("UpdatedCountry"), Optional.of("updated@gmail.com"), Optional.of("")
+        );
 
         // WHEN
         MemberResponseDTO updatedMember = memberService.updateMember("testUser", memberUpdateDTO);
@@ -171,7 +167,6 @@ public class MemberServiceTest {
         assertThat(updatedMember.email()).isEqualTo("updated@gmail.com");
         assertThat(updatedMember.country()).isEqualTo("UpdatedCountry");
 
-        // Verify repository interactions
         verify(memberRepository, times(1)).findMemberByUsername("testUser");
         verify(memberRepository, times(1)).save(any(Member.class));
     }
@@ -188,7 +183,6 @@ public class MemberServiceTest {
         // THEN
         assertThat(deletedRows).isEqualTo(1);
 
-        // Verify repository interaction
         verify(memberRepository, times(1)).deleteMemberByUsername("testUser");
     }
 
@@ -204,7 +198,6 @@ public class MemberServiceTest {
         // THEN
         assertThat(deletedRows).isEqualTo(0);
 
-        // Verify repository interaction
         verify(memberRepository, times(1)).deleteMemberByUsername("invalidUser");
     }
 }
