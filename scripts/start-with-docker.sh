@@ -7,7 +7,9 @@ mkdir -p ../config
 touch "$ENV_FILE"
 
 if [[ -f "$ENV_FILE" ]]; then
-  source "$ENV_FILE"
+    set -a
+    source "$ENV_FILE"
+    set +a
 fi
 
 prompt_with_default() {
